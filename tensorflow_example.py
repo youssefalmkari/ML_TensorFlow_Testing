@@ -12,7 +12,7 @@ print("\n")
 print("Session evaluation of constant nodes:")
 sess = tf.Session()
 print(sess.run([node1, node2]))
-print("\n")
+print("\n") 
 
 # Combine nodes using Operations and evaluate in a session
 print("Combined node3 from adding node1 & node2")
@@ -38,3 +38,15 @@ print("\n")
 print("Add another operation to adder_node:")
 add_and_triple = adder_node * 3
 print("add_and_triple w/ args: 3. 4.5 --> ", sess.run(add_and_triple, {a: 3, b: 4.5}))
+
+# Variables allow us to add trainable parameters to a graph
+# They are constructed with a type and intitial value
+W = tf.Variable([.3], dtype=tf.float32)
+b = tf.Variable([-.3], dtype=tf.float32)
+x = tf.placeholder(tf.float32)
+linear_model = W*x + b
+
+# Must initialize all variables you must call a special operation:
+init = tf.global_variables_initializer()
+sess.run(init)
+print("linear_model: W*x + b --> ", sess.run(linear_model, {x: [1, 2, 3, 4]}))
